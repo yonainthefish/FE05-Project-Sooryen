@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <input type="file" id="imageInput">
+  <img src="" id="imagePre" alt="">
+
+  <script>
+    const handleImgInput = async (e) => {
+      const formData = new FormData()
+      const userImg = e.target.files[0]
+      formData.append("image", userImg)
+      const res = await fetch("https://api.mandarin.weniv.co.kr/image/uploadfile", {
+        method: "POST",
+        body: formData
+      })
+      const json = await res.json()
+      document.querySelector("#imagePre").src = `https://api.mandarin.weniv.co.kr/${json.filename}`
+    }
+
+    document.querySelector("#imageInput").addEventListener("change", handleImgInput)
+  </script>
+</body>
+
+</html>

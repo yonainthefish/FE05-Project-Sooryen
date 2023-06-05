@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=\, initial-scale=1.0">
+            <title>프로필정보 불러오기</title>
+        </head>
+        <body>                    
+            <section id="userProfile">
+                <img id="profileImage" src="" alt="Profile Image">
+                <h1 id="username"></h1>
+                <h2 id="accountname"></h2>
+                <p id="followerCount"></p>
+                <p id="followingCount"></p>
+            </section>
+
+            <script>
+                // HTML 요소 가져오기
+                const profileImage = document.getElementById("profileImage");
+                const username = document.getElementById("username");
+                const accountname = document.getElementById("accountname");
+                const followerCount = document.getElementById("followerCount");
+                const followingCount = document.getElementById("followingCount");
+                const imageUrl = document.querySelector("#imagePre").src
+
+
+                // JSON 데이터
+                const userProfileData = [
+                    {
+                        "user": {
+                            "_id": username,
+                            "username": username,
+                            "accountname": accountname,
+                            "image": imgUrl,
+                            "isfollow": false,
+                            "following": [],
+                            "follower": [],
+                            "followerCount": 0,
+                            "followingCount": 0
+                        }
+                    }
+                ];
+
+                
+
+                // JSON 데이터를 HTML 요소에 할당
+                profileImage.src = userProfileData[0].user.image;
+                username.textContent = userProfileData[0].user.username;
+                accountname.textContent = "@" + userProfileData[0].user.accountname;
+                followerCount.textContent = "Followers: " + userProfileData[0].user.followerCount;
+                followingCount.textContent = "Following: " + userProfileData[0].user.followingCount;
+            </script>
+    </body>
+    </html>
