@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <input type="file" id="imageInput" multiple>
+  <img src="" id="imagePre" alt="">
+
+  <script>
+    document.querySelector("input").addEventListener("change", async (e) => {
+      const formData = new FormData()
+      const images = e.target.files
+      if (images.length <= 3) {
+        for (i of images) {
+          formData.append("image", i)
+        }
+      } else {
+        console.log("3개 초과입니다")
+        return
+      }
+      const res = await fetch("https://api.mandarin.weniv.co.kr/image/uploadfiles", {
+        method: "POST",
+        body: formData
+      })
+      
+      const json = await res.json()
+      for (i of json) {
+        console.log(`https://api.mandarin.weniv.co.kr/${i.filename}`)
+        const obj = document.createElement('img')
+        obj.setAttribute('src', `https://api.mandarin.weniv.co.kr/${i.filename}`)
+        document.body.append(obj)
+      }
+    })
+  </script>
+</body>
+
+</html>
